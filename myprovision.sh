@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 echo "Start!"
 
 sudo apt update
