@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # restful framework
     'rest_framework',
+    # project apps
+    "accounts",
 ]
 
 REST_FRAMEWORK = {
