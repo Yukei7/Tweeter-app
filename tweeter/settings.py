@@ -26,7 +26,7 @@ SECRET_KEY = 'o@z$*g#bb07+40o73qz$fpx_z=ua!1l_&vp!6ion--a(=qjxth'
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '192.168.33.10', 'localhost']
-
+INTERNAL_IPS = ['10.0.2.2']
 
 # Application definition
 
@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # restful framework
     'rest_framework',
+    # debug toolbar
+    "debug_toolbar",
     # project apps
     "accounts",
 ]
@@ -56,6 +58,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # debug toolbar
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'tweeter.urls'
