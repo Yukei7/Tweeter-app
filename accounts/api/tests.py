@@ -11,7 +11,8 @@ LOGIN_STATUS_URL = '/api/accounts/login_status/'
 
 class AccountAPITests(TestCase):
 
-    def createUser(self, username, email, password):
+    @staticmethod
+    def createUser(username, email, password):
         return User.objects.create_user(username, email, password)
 
     def setUp(self) -> None:
