@@ -1,4 +1,4 @@
-from django.test import TestCase
+from testing.testcases import TestCase
 from rest_framework.test import APIClient
 from django.contrib.auth.models import User
 
@@ -10,14 +10,9 @@ LOGIN_STATUS_URL = '/api/accounts/login_status/'
 
 
 class AccountAPITests(TestCase):
-
-    @staticmethod
-    def createUser(username, email, password):
-        return User.objects.create_user(username, email, password)
-
     def setUp(self) -> None:
         self.client = APIClient()
-        self.user = self.createUser(
+        self.user = self.create_user(
             username='mytest',
             email='test@tweeter.com',
             password='mytest',
