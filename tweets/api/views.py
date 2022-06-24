@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from tweets.models import Tweet
@@ -15,7 +15,7 @@ class TweetViewSet(viewsets.GenericViewSet):
 
     def list(self, request):
         if 'user_id' not in request.query_params:
-            return Response('user_id not found', status=400)
+            return Response('user_id not found', status=status.HTTP_400_BAD_REQUEST)
 
         tweets = Tweet.objects.filter(
             user_id=request.query_params['user_id']
@@ -35,7 +35,7 @@ class TweetViewSet(viewsets.GenericViewSet):
                 'success': False,
                 'message': 'Please check input.',
                 'errors': serializer.errors,
-            }, status=400)
+            }, status=status.HTTP_400_BAD_REQUEST)
 
         tweet = serializer.save()
-        return Response(TweetSerializer(tweet).data, status=201)
+        return Response(TweetSerializer(tweet).data, status=status.HTTP_201_CREATED)
