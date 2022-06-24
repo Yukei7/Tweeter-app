@@ -24,7 +24,7 @@ class FollowingSerializer(serializers.ModelSerializer):
         fields = ('user', 'created_at', )
 
 
-class FriendshipSerializerForCreate(serializers.ModelSerializer):
+class FollowingSerializerForCreate(serializers.ModelSerializer):
     from_user_id = serializers.IntegerField()
     to_user_id = serializers.IntegerField()
 

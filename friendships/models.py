@@ -27,6 +27,7 @@ class Friendship(models.Model):
             ('to_user_id', 'created_at'),
         )
         unique_together = (('from_user_id', 'to_user_id'), )
+        ordering = ('-created_at', )
 
     def __str__(self):
         return f"{self.from_user.id} followed {self.to_user.id}"

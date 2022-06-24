@@ -7,19 +7,19 @@ from friendships.models import Friendship
 from friendships.api.serializers import (
     FollowerSerializer,
     FollowingSerializer,
-    FriendshipSerializerForCreate,
+    FollowingSerializerForCreate,
 )
 
 
 class FriendshipViewSet(viewsets.GenericViewSet):
-    serializer_class = FriendshipSerializerForCreate
+    serializer_class = FollowingSerializerForCreate
     queryset = User.objects.all()
 
     # get followers
     @action(methods=['GET'], detail=True, permission_classes=[AllowAny])
     def followers(self, request, pk):
         # GET /api/friendships/1/followers
-        friendships = Friendship.objects.filter(to_user_id=pk).order_by('-created_at')
+        friendships = Friendship.objects.filter(to_user_id=pk)
         serializer = FollowerSerializer(friendships, many=True)
         return Response({'followers': serializer.data}, status=status.HTTP_200_OK)
 
@@ -27,7 +27,7 @@ class FriendshipViewSet(viewsets.GenericViewSet):
     @action(methods=['GET'], detail=True, permission_classes=[AllowAny])
     def followings(self, request, pk):
         # GET /api/friendships/1/followings
-        friendships = Friendship.objects.filter(from_user_id=pk).order_by('-created_at')
+        friendships = Friendship.objects.filter(from_user_id=pk)
         serializer = FollowingSerializer(friendships, many=True)
         return Response({'followings': serializer.data}, status=status.HTTP_200_OK)
 
@@ -41,7 +41,7 @@ class FriendshipViewSet(viewsets.GenericViewSet):
         # check if pk exists, if not, raise 404 error
         self.get_object()
 
-        serializer = FriendshipSerializerForCreate(data={
+        serializer = FollowingSerializerForCreate(data={
             'from_user_id': request.user.id,
             'to_user_id': pk,
         })
@@ -54,7 +54,7 @@ class FriendshipViewSet(viewsets.GenericViewSet):
             }, status=status.HTTP_400_BAD_REQUEST)
 
         friendship = serializer.save()
-        return Response(FriendshipSerializerForCreate(friendship).data,
+        return Response(FollowingSerializer(friendship).data,
                         status=status.HTTP_201_CREATED)
 
     # unfollow action
