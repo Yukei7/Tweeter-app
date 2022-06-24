@@ -1,6 +1,7 @@
 from django.test import TestCase as DjangoTestCase
 from django.contrib.auth.models import User
 from tweets.models import Tweet
+from rest_framework.test import APIClient
 
 
 class TestCase(DjangoTestCase):
@@ -16,3 +17,9 @@ class TestCase(DjangoTestCase):
         if content is None:
             content = "Test content"
         return Tweet.objects.create(user=user, content=content)
+
+    def create_user_cli(self, user=None):
+        api_cli = APIClient()
+        if user is not None:
+            api_cli.force_authenticate(user)
+        return api_cli
