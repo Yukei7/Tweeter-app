@@ -1,5 +1,5 @@
-from django.contrib.auth.models import User, Group
-from rest_framework import viewsets
+from django.contrib.auth.models import User
+from rest_framework import viewsets, status
 from rest_framework import permissions
 from rest_framework.response import Response
 from rest_framework.decorators import action
@@ -45,7 +45,7 @@ class AccountViewSet(viewsets.ViewSet):
                 'success': False,
                 'message': 'Please check input fields',
                 'errors': serializer.errors,
-            }, status=400)
+            }, status=status.HTTP_400_BAD_REQUEST)
 
         user = serializer.save()
         django_login(request, user)
@@ -67,7 +67,7 @@ class AccountViewSet(viewsets.ViewSet):
                 'success': False,
                 'message': 'Please check input fields',
                 'errors': serializer.errors,
-            }, status=400)
+            }, status=status.HTTP_400_BAD_REQUEST)
 
         username = serializer.validated_data['username']
         password = serializer.validated_data['password']
@@ -76,13 +76,13 @@ class AccountViewSet(viewsets.ViewSet):
             return Response({
                 'success': False,
                 'message': 'Username and password does not match with any record',
-            }, status=400)
+            }, status=status.HTTP_400_BAD_REQUEST)
 
         django_login(request, user)
         return Response({
             'success': True,
             'user': UserSerializer(user).data
-        })
+        }, status=status.HTTP_200_OK)
 
     @action(methods=['GET'], detail=False)
     def login_status(self, request):
@@ -97,7 +97,7 @@ class AccountViewSet(viewsets.ViewSet):
         }
         if request.user.is_authenticated:
             data['user'] = UserSerializer(request.user).data
-        return Response(data)
+        return Response(data, status=status.HTTP_200_OK)
 
     @action(methods=['POST'], detail=False)
     def logout(self, request):
@@ -107,4 +107,4 @@ class AccountViewSet(viewsets.ViewSet):
         :return:
         """
         django_logout(request)
-        return Response({'success': True})
+        return Response({'success': True}, status=status.HTTP_200_OK)
