@@ -19,6 +19,7 @@ from rest_framework import routers
 from accounts.api.views import UserViewSet, AccountViewSet
 from tweets.api.views import TweetViewSet
 from friendships.api.views import FriendshipViewSet
+from newsfeeds.api.views import NewsFeedViewSet
 
 
 router = routers.DefaultRouter()
@@ -26,6 +27,7 @@ router.register(r'users', UserViewSet)
 router.register(r'accounts', AccountViewSet, basename='accounts')
 router.register(r'tweets', TweetViewSet, basename='tweets')
 router.register(r'friendships', FriendshipViewSet, basename='friendships')
+router.register(r'newsfeeds', NewsFeedViewSet, basename='newsfeeds')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
