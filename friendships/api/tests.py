@@ -10,7 +10,6 @@ UNFOLLOW_URL = "/api/friendships/{}/unfollow/"
 
 class FriendshipApiTests(TestCase):
     def setUp(self) -> None:
-        self.anonymous_cli = self.create_user_cli(user=None)
         self.user1 = self.create_user(
             username="user1"
         )
