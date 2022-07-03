@@ -6,8 +6,11 @@ from tweets.api.serializers import TweetSerializer, TweetSerializerForCreate
 from newsfeeds.services import NewsFeedService
 
 
-class TweetViewSet(viewsets.GenericViewSet):
+class TweetViewSet(viewsets.GenericViewSet,
+                   viewsets.mixins.CreateModelMixin,
+                   viewsets.mixins.ListModelMixin):
     serializer_class = TweetSerializerForCreate
+    queryset = Tweet.objects.all()
 
     def get_permissions(self):
         if self.action == 'list':
