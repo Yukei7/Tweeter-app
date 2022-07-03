@@ -31,10 +31,10 @@ sudo apt install -y python3-testresources
 pip install --upgrade setuptools
 pip install --ignore-installed wrapt
 pip install -U pip
-pip install -r requirements.txt
+pip install -r /vagrant/requirements.txt
 
 # django admin
-sudo apt install python3-django
+sudo apt install -y python3-django
 
 # setup mysql and database
 sudo mysql -u root << EOF
