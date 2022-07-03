@@ -4,7 +4,7 @@ from comments.models import Comment
 from django.utils import timezone
 
 COMMENT_URL = '/api/comments/'
-COMMENT_DETAIL_URL = '/api/comments/{}'
+COMMENT_DETAIL_URL = '/api/comments/{}/'
 
 
 class CommentApiTests(TestCase):
