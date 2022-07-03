@@ -17,13 +17,12 @@ class UserSerializerForTweet(serializers.ModelSerializer):
         fields = ('id', 'username')
 
 
-class UserSerializerForFriendship(serializers.ModelSerializer):
-    """
-    User Serializer For Friendship: restricted to id and username.
-    """
-    class Meta:
-        model = User
-        fields = ('id', 'username')
+class UserSerializerForFriendship(UserSerializerForTweet):
+    pass
+
+
+class UserSerializerForComment(UserSerializerForTweet):
+    pass
 
 
 class SignupSerializer(serializers.ModelSerializer):
