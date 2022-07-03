@@ -31,27 +31,31 @@ INTERNAL_IPS = ['10.0.2.2']
 # Application definition
 
 INSTALLED_APPS = [
+    # django default
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # restful framework
+    # third-party
     'rest_framework',
-    # debug toolbar
-    "debug_toolbar",
+    'debug_toolbar',
+    'django_filters',
     # project apps
-    "accounts",
-    "tweets",
-    "friendships",
-    "newsfeeds",
-    "comments",
+    'accounts',
+    'tweets',
+    'friendships',
+    'newsfeeds',
+    'comments',
 ]
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 10,
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ]
 }
 
 MIDDLEWARE = [
@@ -63,7 +67,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # debug toolbar
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'tweeter.urls'
@@ -139,3 +143,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# if local_settings does not exist in production environment, try, catch
+try:
+    from .local_settings import *
+except:
+    pass
