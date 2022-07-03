@@ -1,11 +1,11 @@
 from django.test import TestCase as DjangoTestCase
 from django.contrib.auth.models import User
 from tweets.models import Tweet
+from comments.models import Comment
 from rest_framework.test import APIClient
 
 
 class TestCase(DjangoTestCase):
-
     @property
     def anonymous_cli(self):
         if hasattr(self, '_anonymous_cli'):
@@ -31,3 +31,10 @@ class TestCase(DjangoTestCase):
         api_cli = APIClient()
         api_cli.force_authenticate(user)
         return api_cli
+
+    def create_comment(self, user, tweet, content=None):
+        if content is None:
+            content = 'default comment content'
+
+        return Comment.objects.create(user=user, tweet=tweet, content=content)
+
