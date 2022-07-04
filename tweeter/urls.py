@@ -21,6 +21,7 @@ from tweets.api.views import TweetViewSet
 from friendships.api.views import FriendshipViewSet
 from newsfeeds.api.views import NewsFeedViewSet
 from comments.api.views import CommentViewSet
+from likes.api.views import LikeViewSet
 
 
 router = routers.DefaultRouter()
@@ -30,6 +31,7 @@ router.register(r'tweets', TweetViewSet, basename='tweets')
 router.register(r'friendships', FriendshipViewSet, basename='friendships')
 router.register(r'newsfeeds', NewsFeedViewSet, basename='newsfeeds')
 router.register(r'comments', CommentViewSet, basename='comments')
+router.register(r'likes', LikeViewSet, basename='likes')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
