@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'friendships',
     'newsfeeds',
     'comments',
+    'likes',
 ]
 
 REST_FRAMEWORK = {
@@ -145,7 +146,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # if local_settings does not exist in production environment, try, catch
-try:
-    from .local_settings import *
-except:
-    pass
+# try:
+#     from .local_settings import *
+# except:
+#     pass
